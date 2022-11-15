@@ -1,0 +1,21 @@
+export enum PokemonType {
+
+  NORMAL,
+  FIGHTING,
+  FLYING,
+  POISON,
+  GROUND,
+  ROCK,
+  BUG,
+  GHOST,
+  STEEL,
+  FIRE,
+  GRASS,
+  WATER,
+  ELECTRIC,
+  PSYCHIC,
+  ICE,
+  DRAGON,
+  DARK,
+  FAIRY,
+}
