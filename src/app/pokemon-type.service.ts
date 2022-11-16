@@ -10,14 +10,6 @@ export class PokemonTypeService {
   constructor() {
   }
 
-  getWeaknesses(pokemonType: PokemonType): PokemonType[] {
-    return this.getTypeEffectiveness(pokemonType).vulnerableTo;
-  }
-
-  getResistances(pokemonType: PokemonType): PokemonType[] {
-    return this.getTypeEffectiveness(pokemonType).resistantTo;
-  }
-
   getTypeEffectiveness(pokemonType: PokemonType): TypeEffectiveness {
     let typeEffectivenessForGivenType = TypeEffectivenessChart.find(typeEffectiveness => typeEffectiveness.type === pokemonType);
 

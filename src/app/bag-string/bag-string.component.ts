@@ -24,28 +24,24 @@ export class BagStringComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public attacksFireIsWeakTo(): string {
-    return '@1water,@1rock,@1ground&@2water,@2rock,@3ground,@3water,@3rock,@3ground'
-  }
-
-
-  getBattleStringFor(pokemonName: string) {
+  getBattleStringFor(pokemonName: string): string {
     let pokemon: Pokemon | undefined = this.pokedex.findByName(pokemonName);
 
     if (!pokemon) {
-      return 'unknown pokemon'
+      throw new Error(`unknown pokemon: ${pokemonName}`);
     }
 
-    let typeEffectiveness: TypeEffectiveness[] = pokemon.types.flatMap(this.pokemonTypeService.getTypeEffectiveness);
+    let typeEffectiveness: TypeEffectiveness[] =
+      pokemon.types.flatMap(this.pokemonTypeService.getTypeEffectiveness);
 
-    let weaknesses: PokemonType[] = typeEffectiveness.flatMap(t => t.vulnerableTo);
-    let resistances: PokemonType[] = typeEffectiveness.flatMap(t => t.resistantTo);
+    let vulnerableTo: PokemonType[] = typeEffectiveness.flatMap(t => t.vulnerableTo);
+    let resistantTo: PokemonType[] = typeEffectiveness.flatMap(t => t.resistantTo);
 
-    let weaknessesNoResistance: PokemonType[] = weaknesses
-      .filter(weakness => !resistances.find(resistance => weakness === resistance))
+    let vulnerableToWithNoResistance: PokemonType[] = vulnerableTo
+      .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
 
-    let fastMoveString: string = this.createFastMoveString(weaknessesNoResistance);
-    let chargeMoveString: string = this.createChargeMoveString(weaknessesNoResistance);
+    let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
+    let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
 
     return `${fastMoveString}&${chargeMoveString}`;
   }

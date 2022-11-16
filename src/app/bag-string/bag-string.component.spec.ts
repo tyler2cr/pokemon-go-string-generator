@@ -24,12 +24,7 @@ describe('BagStringComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return string for fire defender', () => {
-    expect(component.attacksFireIsWeakTo())
-      .toEqual('@1water,@1rock,@1ground&@2water,@2rock,@3ground,@3water,@3rock,@3ground')
-  });
-
-  it('should return string for charmander  defender', () => {
+  it('should return string for charmander defender', () => {
 
     let battleCharmanderString: string = component.getBattleStringFor('charmander');
 
@@ -55,8 +50,8 @@ describe('BagStringComponent', () => {
       .withContext("Expected the moves to be split by commas").toEqual(6);
   });
 
-  it('should return string for squirtle  defender', () => {
+  it('should return string for bulbasaur  defender', () => {
 
-    expect(component.getBattleStringFor('bulbasaur')).toEqual("dud");
+    expect(component.getBattleStringFor('bulbasaur')).toEqual("fail");
   });
 });
