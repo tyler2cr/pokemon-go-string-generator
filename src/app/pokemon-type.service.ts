@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PokemonType} from "./pokemon-type";
-import {Weakness} from "./weakness";
-import {Resistance} from "./resistance";
 import {TypeEffectiveness, TypeEffectivenessChart} from "./type-effectiveness";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +24,7 @@ export class PokemonTypeService {
     if (typeEffectivenessForGivenType) {
       return typeEffectivenessForGivenType;
     } else {
-      throw error(`No type effectiveness found for type: [${pokemonType}]`)
+      throw Error(`No type effectiveness found for type: [${pokemonType}]`)
     }
   }
 }
