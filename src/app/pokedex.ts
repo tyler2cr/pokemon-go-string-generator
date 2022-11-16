@@ -16,6 +16,6 @@ export class Pokedex {
   ];
 
   public findByName(name: string): Pokemon | undefined {
-    return this.pokemon.filter(pokemon => pokemon.name === name).pop();
+    return this.pokemon.filter(pokemon => pokemon.name.toLowerCase() === name.toLowerCase()).pop();
   }
 }

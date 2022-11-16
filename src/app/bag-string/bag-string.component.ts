@@ -3,6 +3,7 @@ import {Pokedex} from "../pokedex";
 import {Pokemon} from "../pokemon";
 import {PokemonTypeService} from "../pokemon-type.service";
 import {PokemonType} from "../pokemon-type";
+import {TypeEffectiveness} from "../type-effectiveness";
 
 @Component({
   selector: 'app-bag-string',
@@ -28,21 +29,20 @@ export class BagStringComponent implements OnInit {
   }
 
 
-  getString(pokemonName: string) {
+  getBattleStringFor(pokemonName: string) {
     let pokemon: Pokemon | undefined = this.pokedex.findByName(pokemonName);
 
     if (!pokemon) {
       return 'unknown pokemon'
     }
 
-    let pokemonTypes = pokemon.types;
+    let typeEffectiveness: TypeEffectiveness[] = pokemon.types.flatMap(this.pokemonTypeService.getTypeEffectiveness);
 
-    let weaknesses: PokemonType[] = pokemonTypes.flatMap(this.pokemonTypeService.getWeaknesses);
-    let resistances: PokemonType[] = pokemonTypes.flatMap(this.pokemonTypeService.getResistances);
+    let weaknesses: PokemonType[] = typeEffectiveness.flatMap(t => t.weaknesses);
+    let resistances: PokemonType[] = typeEffectiveness.flatMap(t => t.resistances);
 
     let weaknessesNoResistance: PokemonType[] = weaknesses
       .filter(weakness => !resistances.find(resistance => weakness === resistance))
-
 
     let fastMoveString: string = this.createFastMoveString(weaknessesNoResistance);
     let chargeMoveString: string = this.createChargeMoveString(weaknessesNoResistance);
@@ -52,13 +52,14 @@ export class BagStringComponent implements OnInit {
 
   createFastMoveString(weaknessesNoResistance: PokemonType[]): string {
     return weaknessesNoResistance
-      .map(type => `@1${type.toString().toLowerCase()}`)
+      .map(type => PokemonType[type].toLowerCase())
+      .map(type => `@1${type}`)
       .join(',')
   }
 
   createChargeMoveString(weaknessesNoResistance: PokemonType[]): string {
     return weaknessesNoResistance
-      .map(type => type.toString().toLowerCase())
+      .map(type => PokemonType[type].toLowerCase())
       .map(type => `@2${type},@3${type}`)
       .join(',');
   }
