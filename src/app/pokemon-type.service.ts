@@ -11,11 +11,11 @@ export class PokemonTypeService {
   }
 
   getWeaknesses(pokemonType: PokemonType): PokemonType[] {
-    return this.getTypeEffectiveness(pokemonType).weaknesses;
+    return this.getTypeEffectiveness(pokemonType).vulnerableTo;
   }
 
   getResistances(pokemonType: PokemonType): PokemonType[] {
-    return this.getTypeEffectiveness(pokemonType).resistances;
+    return this.getTypeEffectiveness(pokemonType).resistantTo;
   }
 
   getTypeEffectiveness(pokemonType: PokemonType): TypeEffectiveness {

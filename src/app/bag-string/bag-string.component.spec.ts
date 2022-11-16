@@ -57,6 +57,6 @@ describe('BagStringComponent', () => {
 
   it('should return string for squirtle  defender', () => {
 
-    expect(component.getBattleStringFor('squirtle'))
+    expect(component.getBattleStringFor('bulbasaur')).toEqual("dud");
   });
 });

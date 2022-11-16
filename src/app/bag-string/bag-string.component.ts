@@ -38,8 +38,8 @@ export class BagStringComponent implements OnInit {
 
     let typeEffectiveness: TypeEffectiveness[] = pokemon.types.flatMap(this.pokemonTypeService.getTypeEffectiveness);
 
-    let weaknesses: PokemonType[] = typeEffectiveness.flatMap(t => t.weaknesses);
-    let resistances: PokemonType[] = typeEffectiveness.flatMap(t => t.resistances);
+    let weaknesses: PokemonType[] = typeEffectiveness.flatMap(t => t.vulnerableTo);
+    let resistances: PokemonType[] = typeEffectiveness.flatMap(t => t.resistantTo);
 
     let weaknessesNoResistance: PokemonType[] = weaknesses
       .filter(weakness => !resistances.find(resistance => weakness === resistance))

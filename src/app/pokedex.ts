@@ -10,8 +10,11 @@ export class Pokedex {
   private pokemon: Pokemon[] = [
     {
       name: 'charmander',
-      pokedexNumber: 1,
       types: [PokemonType.FIRE]
+    },
+    {
+      name: 'bulbasaur',
+      types: [PokemonType.GRASS, PokemonType.POISON]
     }
   ];
 
