@@ -8,18 +8,18 @@ export interface TypeEffectiveness {
 
 export const TypeEffectivenessChart: TypeEffectiveness[] = [
   {
-    type: PokemonType.FIRE,
-    vulnerableTo: [PokemonType.WATER, PokemonType.ROCK, PokemonType.GROUND],
-    resistantTo: [PokemonType.BUG, PokemonType.FAIRY, PokemonType.FIRE, PokemonType.ICE, PokemonType.STEEL]
+    type: PokemonType.Fire,
+    vulnerableTo: [PokemonType.Water, PokemonType.Rock, PokemonType.Ground],
+    resistantTo: [PokemonType.Bug, PokemonType.Fairy, PokemonType.Fire, PokemonType.Ice, PokemonType.Steel]
   },
   {
-    type: PokemonType.GRASS,
-    vulnerableTo: [PokemonType.FLYING, PokemonType.POISON, PokemonType.BUG, PokemonType.FIRE, PokemonType.ICE],
-    resistantTo: [PokemonType.GROUND, PokemonType.WATER, PokemonType.ELECTRIC, PokemonType.GRASS]
+    type: PokemonType.Grass,
+    vulnerableTo: [PokemonType.Flying, PokemonType.Poison, PokemonType.Bug, PokemonType.Fire, PokemonType.Ice],
+    resistantTo: [PokemonType.Ground, PokemonType.Water, PokemonType.Electric, PokemonType.Grass]
   },
   {
-    type: PokemonType.POISON,
-    vulnerableTo: [PokemonType.GHOST, PokemonType.GROUND, PokemonType.POISON],
-    resistantTo: [PokemonType.ELECTRIC, PokemonType.GRASS, PokemonType.GROUND, PokemonType.WATER]
+    type: PokemonType.Poison,
+    vulnerableTo: [PokemonType.Ghost, PokemonType.Ground, PokemonType.Poison],
+    resistantTo: [PokemonType.Electric, PokemonType.Grass, PokemonType.Ground, PokemonType.Water]
   }
 ]

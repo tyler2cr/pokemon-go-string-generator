@@ -4,7 +4,7 @@ import {Pokemon} from "../pokemon";
 import {PokemonTypeService} from "../pokemon-type.service";
 import {PokemonType} from "../pokemon-type";
 import {TypeEffectiveness} from "../type-effectiveness";
-import {MatSelect} from "@angular/material/select";
+import {PokemonFromApi} from "../pokemon-from-api";
 
 @Component({
   selector: 'app-bag-string',
@@ -26,14 +26,14 @@ export class BagStringComponent implements OnInit {
   }
 
   getBattleStringFor(pokemonName: string): string {
-    let pokemon: Pokemon | undefined = this.pokedex.findByName(pokemonName);
+    let pokemon: PokemonFromApi | undefined = this.pokedex.findByName(pokemonName);
 
     if (!pokemon) {
       return '';
     }
 
     let typeEffectiveness: TypeEffectiveness[] =
-      pokemon.types.flatMap(this.pokemonTypeService.getTypeEffectiveness);
+      pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
 
     let vulnerableTo: PokemonType[] = typeEffectiveness.flatMap(t => t.vulnerableTo);
     let resistantTo: PokemonType[] = typeEffectiveness.flatMap(t => t.resistantTo);
