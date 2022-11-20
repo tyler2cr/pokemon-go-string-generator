@@ -15,7 +15,8 @@ export class BagStringComponent implements OnInit {
   selectedPokemonName: string | undefined;
   battleString: string | undefined;
 
-  constructor(public pokedex: Pokedex, public pokemonTypeService: PokemonTypeService) {
+  constructor(public pokedex: Pokedex,
+              public pokemonTypeService: PokemonTypeService) {
   }
 
   ngOnInit(): void {
@@ -44,20 +45,6 @@ export class BagStringComponent implements OnInit {
 
         this.battleString = `${fastMoveString}&${chargeMoveString}`;
       });
-
-    // let typeEffectivenesses: TypeEffectiveness[] =
-    //   pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
-    //
-    // let vulnerableTo: Type[] = typeEffectivenesses.flatMap(t => t.vulnerableTo);
-    // let resistantTo: Type[] = typeEffectivenesses.flatMap(t => t.resistantTo);
-    //
-    // let vulnerableToWithNoResistance: Type[] = vulnerableTo
-    //   .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
-    //
-    // let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
-    // let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
-    //
-    // return `${fastMoveString}&${chargeMoveString}`;
   }
 
 

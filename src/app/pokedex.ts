@@ -3,7 +3,7 @@ import {Type} from "./type";
 import {Injectable} from "@angular/core";
 import {PokemonTypesApi} from "./pokemon-types-api";
 import {HttpClient} from "@angular/common/http";
-import {filter, map, Observable, pipe} from "rxjs";
+import {concatMap, filter, flatMap, from, map, mergeMap, Observable, of, pipe} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class Pokedex {
   constructor(private http: HttpClient) {
   }
 
-  private readPokemonFromFile(): Observable<PokemonTypesApi> {
-    return this.http.get<PokemonTypesApi>('../../util/pokemon_types.json');
+  private readPokemonFromFile(): Observable<PokemonTypesApi[]> {
+    return this.http.get<PokemonTypesApi[]>('assets/pogoapi/pokemon_types.json');
   }
 
   private _pokemonList: Pokemon[] = [
@@ -36,9 +36,16 @@ export class Pokedex {
   //   return this._pokemonFromApi.filter(pokemon => pokemon.pokemon_name.toLowerCase() === name.toLowerCase()).pop();
   // }
   public findByName(pokemonName: string): Observable<PokemonTypesApi> {
-    return this.readPokemonFromFile().pipe(filter((pokemon: PokemonTypesApi) =>
-        pokemon.pokemon_name.toLowerCase() === pokemonName.toLowerCase()))
+    return this.readPokemonFromFile()
+      .pipe(
+        concatMap((pokemon: PokemonTypesApi[]) => from(pokemon)),
+        filter((pokemon: PokemonTypesApi) => pokemon.pokemon_name.toLowerCase() === pokemonName.toLowerCase()),
+        filter((pokemon:PokemonTypesApi) => pokemon.form === 'Normal'));
   }
+
+  // filter((pokemon: PokemonTypesApi) =>
+  //   pokemon.pokemon_name.toLowerCase() === pokemonName.toLowerCase())
+
 
   // public allNames(): string[] {
   //   return this._pokemonList.map(pokemon => pokemon.name);
