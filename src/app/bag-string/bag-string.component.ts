@@ -13,10 +13,9 @@ import {MatSelect} from "@angular/material/select";
 })
 export class BagStringComponent implements OnInit {
 
-  bagString: string | undefined;
   pokedex: Pokedex;
   pokemonTypeService: PokemonTypeService;
-  public selectedPokemonName: string | undefined;
+  selectedPokemonName: string | undefined;
 
   constructor(pokedex: Pokedex, pokemonTypeService: PokemonTypeService) {
     this.pokedex = pokedex;
@@ -30,7 +29,7 @@ export class BagStringComponent implements OnInit {
     let pokemon: Pokemon | undefined = this.pokedex.findByName(pokemonName);
 
     if (!pokemon) {
-      throw new Error(`unknown pokemon: ${pokemonName}`);
+      return '';
     }
 
     let typeEffectiveness: TypeEffectiveness[] =
@@ -47,6 +46,8 @@ export class BagStringComponent implements OnInit {
 
     return `${fastMoveString}&${chargeMoveString}`;
   }
+
+
 
   createFastMoveString(weaknessesNoResistance: PokemonType[]): string {
     return weaknessesNoResistance
