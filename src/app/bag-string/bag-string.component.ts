@@ -4,6 +4,7 @@ import {Pokemon} from "../pokemon";
 import {PokemonTypeService} from "../pokemon-type.service";
 import {PokemonType} from "../pokemon-type";
 import {TypeEffectiveness} from "../type-effectiveness";
+import {MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-bag-string',
@@ -15,6 +16,7 @@ export class BagStringComponent implements OnInit {
   bagString: string | undefined;
   pokedex: Pokedex;
   pokemonTypeService: PokemonTypeService;
+  public selectedPokemonName: string | undefined;
 
   constructor(pokedex: Pokedex, pokemonTypeService: PokemonTypeService) {
     this.pokedex = pokedex;

@@ -1,1 +1,12 @@
-<p>{{bagString}}</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select an pokemon</mat-label>
+  <mat-select [(value)]="selectedPokemonName">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let pokemonName of pokedex.allNames()" [value]="pokemonName">
+      {{pokemonName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<p>{{selectedPokemonName && getBattleStringFor(selectedPokemonName)}}</p>

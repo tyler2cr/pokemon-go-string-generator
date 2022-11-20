@@ -21,4 +21,8 @@ export class Pokedex {
   public findByName(name: string): Pokemon | undefined {
     return this.pokemon.filter(pokemon => pokemon.name.toLowerCase() === name.toLowerCase()).pop();
   }
+
+  public allNames(): string[] {
+    return this.pokemon.map(pokemon => pokemon.name);
+  }
 }
