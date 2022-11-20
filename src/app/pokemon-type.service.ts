@@ -11,7 +11,9 @@ export class PokemonTypeService {
   }
 
   getTypeEffectiveness(pokemonType: Type): TypeEffectiveness {
-    let typeEffectivenessForGivenType = TypeEffectivenessChart.find(typeEffectiveness => typeEffectiveness.type === pokemonType);
+    let typeEffectivenessForGivenType = TypeEffectivenessChart.find(typeEffectiveness => {
+      return typeEffectiveness.type === pokemonType;
+    });
 
     if (typeEffectivenessForGivenType) {
       return typeEffectivenessForGivenType;
