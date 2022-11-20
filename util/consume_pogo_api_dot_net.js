@@ -26,7 +26,7 @@ let consumeApi = (urlPath, fileName) => {
     .then(response => response.json())
     // .then(console.log)
     .then(json => {
-      fs.writeFile(`./${fileName}`, JSON.stringify(json), err => {
+      fs.writeFile(`../src/assets/pogoapi/${fileName}`, JSON.stringify(json), err => {
         if (err) {
           console.error(err);
         }

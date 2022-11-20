@@ -1,4 +1,4 @@
-export enum PokemonType {
+export enum Type {
   Normal,
   Fighting,
   Flying,

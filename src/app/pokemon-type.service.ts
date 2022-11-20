@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PokemonType} from "./pokemon-type";
+import {Type} from "./type";
 import {TypeEffectiveness, TypeEffectivenessChart} from "./type-effectiveness";
 
 @Injectable({
@@ -10,7 +10,7 @@ export class PokemonTypeService {
   constructor() {
   }
 
-  getTypeEffectiveness(pokemonType: PokemonType): TypeEffectiveness {
+  getTypeEffectiveness(pokemonType: Type): TypeEffectiveness {
     let typeEffectivenessForGivenType = TypeEffectivenessChart.find(typeEffectiveness => typeEffectiveness.type === pokemonType);
 
     if (typeEffectivenessForGivenType) {

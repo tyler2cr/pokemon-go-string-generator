@@ -2,7 +2,9 @@
   <mat-label id="select-a-pokemon-to-attack">
     Select a pokemon to attack
   </mat-label>
-  <mat-select [(value)]="selectedPokemonName" aria-labelledby="select-a-pokemon-to-attack">
+  <mat-select [(value)]="selectedPokemonName"
+              aria-labelledby="select-a-pokemon-to-attack"
+              (selectionChange)="selected()">
     <mat-option>None</mat-option>
     <mat-option *ngFor="let pokemonName of pokedex.allNames()" [value]="pokemonName">
       {{pokemonName}}
@@ -19,13 +21,11 @@
       mat-raised-button
       aria-labelledby="copy-this-string"
       *ngIf="selectedPokemonName"
-      [cdkCopyToClipboard]="getBattleStringFor(selectedPokemonName)">
+      [cdkCopyToClipboard]="battleString ? battleString : ''">
       <mat-icon>file_copy</mat-icon>
       <span>
-      {{getBattleStringFor(selectedPokemonName)}}
+      {{battleString}}
     </span>
     </button>
   </mat-card-content>
 </mat-card>
-
-

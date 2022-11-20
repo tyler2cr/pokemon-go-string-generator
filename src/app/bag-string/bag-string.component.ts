@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Pokedex} from "../pokedex";
-import {Pokemon} from "../pokemon";
 import {PokemonTypeService} from "../pokemon-type.service";
-import {PokemonType} from "../pokemon-type";
+import {Type} from "../type";
 import {TypeEffectiveness} from "../type-effectiveness";
-import {PokemonFromApi} from "../pokemon-from-api";
+import {PokemonTypesApi} from "../pokemon-types-api";
 
 @Component({
   selector: 'app-bag-string',
@@ -13,52 +12,65 @@ import {PokemonFromApi} from "../pokemon-from-api";
 })
 export class BagStringComponent implements OnInit {
 
-  pokedex: Pokedex;
-  pokemonTypeService: PokemonTypeService;
   selectedPokemonName: string | undefined;
+  battleString: string | undefined;
 
-  constructor(pokedex: Pokedex, pokemonTypeService: PokemonTypeService) {
-    this.pokedex = pokedex;
-    this.pokemonTypeService = pokemonTypeService;
+  constructor(public pokedex: Pokedex, public pokemonTypeService: PokemonTypeService) {
   }
 
   ngOnInit(): void {
   }
 
-  getBattleStringFor(pokemonName: string): string {
-    let pokemon: PokemonFromApi | undefined = this.pokedex.findByName(pokemonName);
-
-    if (!pokemon) {
-      return '';
+  selected() {
+    if (this.selectedPokemonName) {
+      this.getBattleStringFor(this.selectedPokemonName);
     }
+  }
 
-    let typeEffectiveness: TypeEffectiveness[] =
-      pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
+  getBattleStringFor(pokemonName: string): void {
+    this.pokedex.findByName(pokemonName)
+      .subscribe((pokemon: PokemonTypesApi) => {
+        let typeEffectivenesses: TypeEffectiveness[] =
+          pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
 
-    let vulnerableTo: PokemonType[] = typeEffectiveness.flatMap(t => t.vulnerableTo);
-    let resistantTo: PokemonType[] = typeEffectiveness.flatMap(t => t.resistantTo);
+        let vulnerableTo: Type[] = typeEffectivenesses.flatMap(t => t.vulnerableTo);
+        let resistantTo: Type[] = typeEffectivenesses.flatMap(t => t.resistantTo);
 
-    let vulnerableToWithNoResistance: PokemonType[] = vulnerableTo
-      .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
+        let vulnerableToWithNoResistance: Type[] = vulnerableTo
+          .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
 
-    let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
-    let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
+        let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
+        let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
 
-    return `${fastMoveString}&${chargeMoveString}`;
+        this.battleString = `${fastMoveString}&${chargeMoveString}`;
+      });
+
+    // let typeEffectivenesses: TypeEffectiveness[] =
+    //   pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
+    //
+    // let vulnerableTo: Type[] = typeEffectivenesses.flatMap(t => t.vulnerableTo);
+    // let resistantTo: Type[] = typeEffectivenesses.flatMap(t => t.resistantTo);
+    //
+    // let vulnerableToWithNoResistance: Type[] = vulnerableTo
+    //   .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
+    //
+    // let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
+    // let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
+    //
+    // return `${fastMoveString}&${chargeMoveString}`;
   }
 
 
-
-  createFastMoveString(weaknessesNoResistance: PokemonType[]): string {
+  createFastMoveString(weaknessesNoResistance: Type[]): string {
     return weaknessesNoResistance
-      .map(type => PokemonType[type].toLowerCase())
+      .map(type => Type[type].toLowerCase())
       .map(type => `@1${type}`)
       .join(',')
   }
 
-  createChargeMoveString(weaknessesNoResistance: PokemonType[]): string {
+  createChargeMoveString(weaknessesNoResistance: Type[]): string {
     return weaknessesNoResistance
-      .map(type => PokemonType[type].toLowerCase())
+      .map(type => Type[type].toLowerCase())
       .map(type => `@2${type},@3${type}`)
       .join(',');
   }

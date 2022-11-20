@@ -13,6 +13,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,11 +22,12 @@ import {MatCardModule} from "@angular/material/card";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    BrowserAnimationsModule,
     ClipboardModule,
     MatButtonModule,
     MatIconModule,

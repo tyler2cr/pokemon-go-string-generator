@@ -1,6 +1,6 @@
-import {PokemonType} from "./pokemon-type";
+import {Type} from "./type";
 
 export interface Weakness {
-  type: PokemonType,
+  type: Type,
   modifier: number
 }
