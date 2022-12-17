@@ -21,7 +21,7 @@ import {HttpClientModule} from "@angular/common/http";
     BagStringComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
