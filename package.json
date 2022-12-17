@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "github-docs": "cp -r dist/pokemon-go-string-generator docs "
   },
   "private": true,
   "dependencies": {
