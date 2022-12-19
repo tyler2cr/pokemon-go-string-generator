@@ -7,11 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "github-docs": "cp -r dist/pokemon-go-string-generator docs ",
-    "dev:ssr": "ng run pokemon-go-string-generator:serve-ssr",
-    "serve:ssr": "node dist/pokemon-go-string-generator/server/main.js",
-    "build:ssr": "ng build && ng run pokemon-go-string-generator:server",
-    "prerender": "ng run pokemon-go-string-generator:prerender"
+    "deploy-gh": "ng deploy --repo=git@github.com:tyler2cr/pokemon-go-string-generator.git"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/platform-server": "^15.0.4",
     "@angular/router": "^15.0.4",
-    "@nguniversal/express-engine": "^15.0.0",
     "express": "^4.15.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -36,10 +31,10 @@
     "@angular-devkit/build-angular": "^15.0.4",
     "@angular/cli": "~15.0.4",
     "@angular/compiler-cli": "^15.0.4",
-    "@nguniversal/builders": "^15.0.0",
     "@types/express": "^4.17.0",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^14.15.0",
+    "angular-cli-ghpages": "^1.0.5",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
