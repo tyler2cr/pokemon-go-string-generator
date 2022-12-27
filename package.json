@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "github-docs": "cp -r dist/pokemon-go-string-generator docs "
+    "github-docs": "cp -r dist/pokemon-go-string-generator docs ",
+    "html-inline": "html-inline dist/pokemon-go-string-generator/index.html --ignore-links -o html-inline.html",
+    "build-single-html": "npm run build && npm run html-inline"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,7 @@
     "@angular/platform-browser": "^15.0.4",
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
+    "html-inline": "^1.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
