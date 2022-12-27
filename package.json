@@ -7,9 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "github-docs": "cp -r dist/pokemon-go-string-generator docs ",
-    "html-inline": "html-inline dist/pokemon-go-string-generator/index.html --ignore-links -o html-inline.html",
-    "build-single-html": "npm run build && npm run html-inline"
+    "single-html": "html-inline dist/pokemon-go-string-generator/index.html --ignore-links -o docs/html-inline.html",
+    "build-for-github-docs": "npm run build && npm run single-html"
   },
   "private": true,
   "dependencies": {
