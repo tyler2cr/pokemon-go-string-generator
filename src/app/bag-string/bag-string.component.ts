@@ -29,7 +29,26 @@ export class BagStringComponent implements OnInit {
   }
 
   getBattleStringFor(pokemonName: string): void {
-    this.pokedex.findByName(pokemonName)
+    let pokemon: PokemonTypesApi = this.pokedex.findByName(pokemonName);
+
+    let typeEffectivenesses: TypeEffectiveness[] =
+      pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);
+
+    let vulnerableTo: Type[] = typeEffectivenesses.flatMap(t => t.vulnerableTo);
+    let resistantTo: Type[] = typeEffectivenesses.flatMap(t => t.resistantTo);
+
+    let vulnerableToWithNoResistance: Type[] = vulnerableTo
+      .filter(weakness => !resistantTo.find(resistance => weakness === resistance))
+
+    let fastMoveString: string = this.createFastMoveString(vulnerableToWithNoResistance);
+    let chargeMoveString: string = this.createChargeMoveString(vulnerableToWithNoResistance);
+
+    this.battleString = `${fastMoveString}&${chargeMoveString}`;
+
+  }
+
+  getBattleStringFromFileFor(pokemonName: string): void {
+    this.pokedex.findByNameFromFile(pokemonName)
       .subscribe((pokemon: PokemonTypesApi) => {
         let typeEffectivenesses: TypeEffectiveness[] =
           pokemon.type.flatMap(this.pokemonTypeService.getTypeEffectiveness);

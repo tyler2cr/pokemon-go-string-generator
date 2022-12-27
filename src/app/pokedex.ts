@@ -3,7 +3,7 @@ import {Type} from "./type";
 import {Injectable} from "@angular/core";
 import {PokemonTypesApi} from "./pokemon-types-api";
 import {HttpClient} from "@angular/common/http";
-import {concatMap, filter, flatMap, from, map, mergeMap, Observable, of, pipe} from "rxjs";
+import {catchError, concatMap, filter, flatMap, from, map, mergeMap, Observable, of, pipe} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +35,27 @@ export class Pokedex {
   // public findByName(name: string): PokemonTypes | undefined {
   //   return this._pokemonFromApi.filter(pokemon => pokemon.pokemon_name.toLowerCase() === name.toLowerCase()).pop();
   // }
-  public findByName(pokemonName: string): Observable<PokemonTypesApi> {
+  public findByNameFromFile(pokemonName: string): Observable<PokemonTypesApi> {
     return this.readPokemonFromFile()
       .pipe(
         concatMap((pokemon: PokemonTypesApi[]) => from(pokemon)),
         filter((pokemon: PokemonTypesApi) => pokemon.pokemon_name.toLowerCase() === pokemonName.toLowerCase()),
-        filter((pokemon:PokemonTypesApi) => pokemon.form === 'Normal'));
+        filter((pokemon: PokemonTypesApi) => pokemon.form === 'Normal'),
+        catchError((err: any, caught: Observable<PokemonTypesApi>) => {
+          throw new Error('Failed to read the pokemon from the file' + err);
+        }));
+  }
+
+  public findByName(pokemonName: string): PokemonTypesApi {
+    const matches = this._pokemonFromApi
+      .filter((pokemon: PokemonTypesApi) => pokemon.pokemon_name.toLowerCase() === pokemonName.toLowerCase())
+      .filter((pokemon: PokemonTypesApi) => pokemon.form === 'Normal');
+
+    if (matches?.length === 1) {
+      return matches[0];
+    } else {
+      throw new Error('Expected 1 match for [' + pokemonName + '] but got [' + matches?.length + ']');
+    }
   }
 
   // filter((pokemon: PokemonTypesApi) =>
@@ -57,7 +72,7 @@ export class Pokedex {
   // get pokemon() {
   //   return this._pokemonList
   // }
-  get pokemon() {
+  get pokemon(): PokemonTypesApi[] {
     return this._pokemonFromApi
   }
 
