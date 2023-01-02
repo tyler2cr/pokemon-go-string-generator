@@ -6,7 +6,7 @@
               aria-labelledby="select-a-pokemon-to-attack"
               (selectionChange)="selected()">
     <mat-option>None</mat-option>
-    <mat-option *ngFor="let pokemonName of pokedex.allNames()" [value]="pokemonName">
+    <mat-option *ngFor="let pokemonName of pokedex.allNames().sort()" [value]="pokemonName">
       {{pokemonName}}
     </mat-option>
   </mat-select>
